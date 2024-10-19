@@ -11,6 +11,9 @@ from flask import Flask, redirect, render_template, request, send_file, url_for
 
 app = Flask(__name__)
 
+imgdir = IMGDIR
+host_url = None
+
 @app.route('/')
 def page_index():
     return redirect(url_for('page_random'))
@@ -25,10 +28,9 @@ def page_404():
 
 @app.route('/imgs/<store_name>/<img_name>', methods=['GET'])
 def page_img(store_name: str, img_name:str):
-    print(img_name)
     if store_name not in STORENAMES:
         return redirect(url_for('page_404'))
-    store_dir = IMGDIR / store_name
+    store_dir = imgdir / store_name
     if not store_dir.exists() or not store_dir.is_dir():
         return redirect(url_for('page_404'))
     imgs = list(store_dir.iterdir())
@@ -43,14 +45,15 @@ def page_random():
     use_redirect = True if request.args.get('redirect', default='False') == 'True' else False
     if store_name not in STORENAMES:
         return redirect(url_for('page_404'))
-    store_dir = IMGDIR / store_name
+    store_dir = imgdir / store_name
     if not store_dir.exists() or not store_dir.is_dir():
         return redirect(url_for('page_404'))
     imgs = list(store_dir.iterdir())
     if len(imgs) == 0:
         return redirect(url_for('page_404'))
     img = random.choice(imgs)
-    url = request.url_root + f'imgs/{store_dir.name}/{img.name}'
+    url = request.host_url if host_url is None else host_url
+    url += f'imgs/{store_dir.name}/{img.name}'
     if not use_json: # 直接返回
         return (send_file(img), 200) if not use_redirect else redirect(url)
     width, height = Image.open(img).size
@@ -61,6 +64,3 @@ def page_random():
         'url': url
     }
     return json.dumps(dic, ensure_ascii=False)
-
-if __name__ == '__main__':
-    app.run(port=80)

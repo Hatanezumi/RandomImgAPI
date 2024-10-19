@@ -2,6 +2,8 @@
 
 *只是简单的实现了*
 
+<a href="https://imgapi.chunshengserver.cn/random">demo</a>
+
 ## 访问
 
 使用`GET`方法访问`<你的域名>/random`即可获取一个随机图片
@@ -16,7 +18,7 @@
 
 ## 部署方法
 
-pip安装Flask, waitress
+pip安装Flask, waitress, pillow
 
 将代码拉取下来
 
