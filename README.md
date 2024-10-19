@@ -20,7 +20,7 @@ pip安装Flask, waitress
 
 将代码拉取下来
 
-在`imgs`下创建`pic`文件夹
+在根目录(`run.py`所在的目录)下创建`imgs`并在`imgs`下创建`pic`文件夹
 
 将图片放入`pic`文件夹
 
