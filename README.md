@@ -2,7 +2,7 @@
 
 *只是简单的实现了*
 
-<a href="https://imgapi.chunshengserver.cn/random">demo</a>
+<a href="https://imgapi.chunshengserver.cn/random" target="_blank">demo</a>
 
 ## 访问
 
