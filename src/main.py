@@ -41,8 +41,8 @@ def page_img(store_name: str, img_name:str):
 @app.route('/random', methods=['GET'])
 def page_random():
     store_name = request.args.get('store_name', default='pics')
-    use_json = True if request.args.get('json', default='False') == 'True' else False
-    use_redirect = True if request.args.get('redirect', default='False') == 'True' else False
+    use_json = True if request.args.get('json', default='False').lower() == 'true' else False
+    use_redirect = True if request.args.get('redirect', default='False').lower() == 'true' else False
     if store_name not in STORENAMES:
         return redirect(url_for('page_404'))
     store_dir = imgdir / store_name
